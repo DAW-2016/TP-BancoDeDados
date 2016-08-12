@@ -4,7 +4,7 @@
 
 **Trabaho Individual**
 
-**Valor: 6 pontos**
+**Valor: 5 pontos**
 
 ## Banco de dados: Pokedex
 
