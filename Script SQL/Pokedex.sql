@@ -1,68 +1,63 @@
-CREATE DATABASE Pokedex
+CREATE DATABASE IF NOT EXISTS Pokedex
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
 
 USE Pokedex;
 
-CREATE TABLE Tipo(
-	idTipo INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(30) NOT NULL,
-    
-    CONSTRAINT uk_Tipo UNIQUE(nome),
-    CONSTRAINT pk_Tipo PRIMARY KEY (idTipo)
+CREATE TABLE IF NOT EXISTS Tipo(
+	
+    idTipo INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+	
+    CONSTRAINT uk_tipo UNIQUE (nome),
+    CONSTRAINT pk_tipo PRIMARY KEY (idTipo)
 );
 
-CREATE TABLE Pokemon(
-	
-    idTipo INT,
+CREATE TABLE IF NOT EXISTS Pokemon(
+		
+	idPokemon INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    peso DECIMAL(10,2) NULL,
+    ataque INT NOT NULL,
+    defesa INT NOT NULL,
+    idTipo INT NOT NULL,
     idEvolucao INT,
-    idLocalizacao INT,
-    idPokemon INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(30) NOT NULL,
-    Peso INT,
-    Defesa INT NOT NULL,
-    Ataque INT NOT NULL,
     
-    
-    CONSTRAINT uk_Pokemon UNIQUE(Nome),
-    CONSTRAINT pk_Pokemon Primary key (idPokemon),
-    
-    CONSTRAINT fk_Pokemon_Evo FOREIGN KEY (idEvolucao)
-    REFERENCES Pokemon(idPokemon),
-    
-    CONSTRAINT fk_Pokemon_Localizacao FOREIGN KEY (idLocalizacao)
-    REFERENCES Localizacao(idLocalizacao),
-    
-    CONSTRAINT fk_Pokemon_Tipo FOREIGN KEY (idTipo)
+    CONSTRAINT pk_pokemon PRIMARY KEY (idPokemon),
+    CONSTRAINT uk_pokemon UNIQUE (nome),
+    CONSTRAINT fk_tipo FOREIGN KEY (idTipo)
     REFERENCES Tipo(idTipo)
+	ON DELETE CASCADE,
+    CONSTRAINT fk_evolucao FOREIGN KEY (idEvolucao)
+    REFERENCES Pokemon(idPokemon)
     ON DELETE CASCADE
-)DEFAULT CHARSET = utf8;
+);
 
-CREATE TABLE Localizacao(
-	
+
+CREATE TABLE IF NOT EXISTS Localizacao(
+
 	idLocalizacao INT NOT NULL AUTO_INCREMENT,
-    locali VARCHAR(30) NOT NULL,
-    latitude DECIMAL(18,15),
-    longitude DECIMAL(18,15),
+	Locall VARCHAR(45) NOT NULL,
+    Latitude DECIMAL(10,2) NOT NULL,
+    Longitude DECIMAL(10,2) NOT NULL,
     
-    CONSTRAINT pk_localizacao PRIMARY KEY(idLocalizacao),
-)DEFAULT CHARSET = utf8;
-
--- INSERT INTO Tipo(nome) 
--- VALUES ("Eletrico");
-
--- INSERT INTO Pokemon(idTipo,idEvo,idPokemon,nome,Peso,Defesa,Ataque) 
--- VALUES(1,null,0,"Raichu",500,500,500);
--- INSERT INTO Pokemon(idTipo,idEvo,idPokemon,nome,Peso,Defesa,Ataque) 
--- VALUES(1,1,0,"Pikachu",500,500,500);
--- INSERT INTO Pokemon(idTipo,idEvo,idPokemon,nome,Peso,Defesa,Ataque) 
--- VALUES(1,2,0,"Pichu",500,500,500);
+    CONSTRAINT pk_Localizacao PRIMARY KEY(idLocalizacao)
+);
 
 
+CREATE TABLE IF NOT EXISTS Pokemon_has_Localizacao(
 
--- DESC Pokemon;
--- 
--- DROP TABLES Pokemon;
--- DROP TABLES Tipo;
--- SELECT * FROM Tipo;
--- SELECT * FROM Pokemon;
+	idPokemon INT NOT NULL,
+    idLocalizacao INT NOT NULL,
+    
+    CONSTRAINT pk_Pokemon_has_Localizacao PRIMARY KEY(idPokemon,idLocalizacao),
+    
+    CONSTRAINT fk_Pokemon_has_Localizacao_Pokemon FOREIGN KEY (idPokemon)
+    REFERENCES Pokemon(idPokemon)
+    ON DELETE CASCADE,
+    
+    CONSTRAINT fk_Pokemon_has_Localizacao_Localizacao FOREIGN KEY (idLocalizacao)
+    REFERENCES Localizacao(idLocalizacao)
+    ON DELETE CASCADE
+    
+);
