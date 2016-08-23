@@ -9,8 +9,7 @@ USE pokedex;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Tipo` (
   `nome` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`nome`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`nome`));
 
 CREATE UNIQUE INDEX `nome_UN` ON `Tipo` (`nome` ASC);
 
@@ -31,8 +30,7 @@ CREATE TABLE IF NOT EXISTS `Pokemon` (
     FOREIGN KEY (`tipo`)
     REFERENCES `Tipo` (`nome`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 CREATE UNIQUE INDEX `nome_UNIQUE` ON `Pokemon` (`nome` ASC);
 
@@ -47,8 +45,7 @@ CREATE TABLE IF NOT EXISTS `Localizacao` (
   `local` TEXT NULL,
   `lat` DECIMAL(2,2) NOT NULL,
   `lon` DECIMAL(2,2) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -68,8 +65,7 @@ CREATE TABLE IF NOT EXISTS `PokemonLocalizacao` (
     FOREIGN KEY (`Localizacao_id`)
     REFERENCES `Localizacao` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 CREATE INDEX `PokemonLocalizacao_Localizacao` ON `PokemonLocalizacao` (`Localizacao_id` ASC);
 
@@ -93,8 +89,7 @@ CREATE TABLE IF NOT EXISTS `Evolucao` (
     FOREIGN KEY (`evolucao`)
     REFERENCES `Pokemon` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 CREATE INDEX `Evolucao_Pokemon_id` ON `Evolucao` (`pokemon` ASC);
 
