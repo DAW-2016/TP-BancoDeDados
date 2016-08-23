@@ -1,7 +1,9 @@
 -- -----------------------------------------------------
--- Schema mydb
+-- Database pokedex
 -- -----------------------------------------------------
-
+DROP DATABASE IF EXISTS pokedex;
+CREATE DATABASE IF NOT EXISTS pokedex;
+USE pokedex;
 -- -----------------------------------------------------
 -- Table `Tipo`
 -- -----------------------------------------------------
@@ -17,7 +19,7 @@ CREATE UNIQUE INDEX `nome_UN` ON `Tipo` (`nome` ASC);
 -- Table `Pokemon`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Pokemon` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `tipo` VARCHAR(15) NOT NULL,
   `locais` INT NULL,
   `nome` VARCHAR(25) NOT NULL,
@@ -41,7 +43,7 @@ CREATE INDEX `fk_Pokemon_Tipo_idx` ON `Pokemon` (`tipo` ASC);
 -- Table `Localizacao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Localizacao` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `local` TEXT NULL,
   `lat` DECIMAL(2,2) NOT NULL,
   `lon` DECIMAL(2,2) NOT NULL,
@@ -78,7 +80,7 @@ CREATE INDEX `PokemonLocalizacao_Pokemon` ON `PokemonLocalizacao` (`Pokemon_id` 
 -- Table `Evolucao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Evolucao` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `pokemon` INT NOT NULL,
   `evolucao` INT NULL,
   PRIMARY KEY (`id`, `pokemon`),
