@@ -4,6 +4,7 @@
 DROP DATABASE IF EXISTS pokedex;
 CREATE DATABASE IF NOT EXISTS pokedex;
 USE pokedex;
+
 -- -----------------------------------------------------
 -- Table `Tipo`
 -- -----------------------------------------------------
@@ -20,7 +21,6 @@ CREATE UNIQUE INDEX `nome_UN` ON `Tipo` (`nome` ASC);
 CREATE TABLE IF NOT EXISTS `Pokemon` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tipo` VARCHAR(15) NOT NULL,
-  `locais` INT NULL,
   `nome` VARCHAR(25) NOT NULL,
   `atk` INT NULL,
   `def` INT NULL,
